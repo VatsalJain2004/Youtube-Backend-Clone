@@ -120,4 +120,4 @@ dist
 # End of https://mrkandreev.name/snippets/gitignore-generator/#Node
 
 
-HTTP crashCourse.txt
+.HTTP crashCourse.txt
