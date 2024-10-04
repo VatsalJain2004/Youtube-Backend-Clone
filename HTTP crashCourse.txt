@@ -1,0 +1,62 @@
+HTTP CRASH COURSE 
+
+HTTP --> hyper text transfer protocol
+
+URL --> Uniform Resourse Locator 
+URI --> Uniform Resourse Identifier 
+URN --> Uniform Resourse Name
+
+
+HTTP headers -> Are the meta-data i.e the data about the data or we can also say that it is the  key value pair send along with the data User or Server sends to each other( means key - value pairs data are send with request and response..)
+
+
+Works of HTTP headers
+-> Caching
+-> Authentication
+-> Manage State (User state -> login or guest)
+-> X was used as a prefix while sending the data... but now is deprecated(since 2011 or so..)
+
+Types of Headers..
+> Request Headers --> from Client
+> Response Headers --> from Server
+> Representation Headers --> encoding / compression 
+> Payload Headers --> data 
+
+
+MOST COMMON HEADERS:
+-> Accept : Application/json
+-> User-Agent
+-> Authorization
+-> Content Type
+-> Cookie
+-> Cache-Control
+
+CORS:
+-> Access-Control-Allow-Origin
+-> Access-Control-Allow-Credentials
+-> Access-Control-Allow-Method
+
+SECURITY:
+-> Cross-Origin-Embedder-Policy
+-> Cross-Origin-Opener-Policy
+-> Content-Security-Policy
+-> X-XSS-Protection
+
+HTTP METHODS:
+Basic set of operations a developer can use to interact with the Server are:
+1. GET
+2. HEAD
+3. OPTIONS
+4. TRACE
+5. DELETE
+6. PUT
+7. POST
+8. PATCH
+
+
+HTTP Status Code
+1xx -> Informational
+2xx -> Success
+3xx -> Redirectional
+4xx -> Client Error
+5xx -> Server Error
