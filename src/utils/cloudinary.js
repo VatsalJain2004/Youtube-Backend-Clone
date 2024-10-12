@@ -1,43 +1,45 @@
-import { v2 as cloudinary } from "cloudinary"
-import fs from "fs"
-import { validateHeaderName } from "http";
+import { v2 as cloudinary } from "cloudinary";
+import fs from "fs";
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+    secure: true,
 });
 
 const uploadOnCloudinary = async (localFilePath) => {
-    // console.log(localFilePath);
+    console.log(localFilePath);
     try {
-        if (!localFilePath)
-            return null
+        if (!localFilePath) return null;
 
+        //upload to cloudinary if localFilePath exists
+        const result = await cloudinary.uploader.upload(localFilePath, {
+            resource_type: 'auto',
+        });
 
-        if (!fs.existsSync(localFilePath)) {
-            console.error(`File not found at path: ${localFilePath}`);
-            return null;
-        }
+        // console.log("file uploaded to cloudinary", result.url);
 
-
-        const response = await cloudinary.uploader.upload(localFilePath, {
-            resource_type: "auto"
-        })
-        // console.log("File or data given has been uploaded on cloudinary", response.url);
-        fs.unlinkSync(localFilePath)
-        // console.log(`\n\n\nUploadOnCloudinary response is: ${response}`);
-        return response
+        fs.unlinkSync(localFilePath); //remove file from localFilePath after uploading to cloudinary
+        return result;
+    } catch (error) {
+        fs.unlinkSync(localFilePath);
+        return error;
     }
-    catch (error) {
+};
 
-        console.error("Error during file upload:", error);
+const deleteOnCloudinary = async (public_id, resource_type = "image") => {
+    try {
+        if (!public_id) return null;
 
-        if (fs.existsSync(localFilePath)) {
-            fs.unlinkSync(localFilePath); // Remove the file in case of error
-        }
-        return null
+        //delete file from cloudinary
+        const result = await cloudinary.uploader.destroy(public_id, {
+            resource_type: `${resource_type}`
+        });
+    } catch (error) {
+        console.log("delete on cloudinary failed", error);
+        return error;
     }
-}
+};
 
-export { uploadOnCloudinary }
+export { uploadOnCloudinary, deleteOnCloudinary };

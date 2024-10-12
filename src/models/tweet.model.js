@@ -4,7 +4,7 @@ const tweetSchema = new Schema(
     {
         content: {
             type: String,
-            required: true
+            required: [true, "content is required"]
         },
         owner: {
             type: Schema.Types.ObjectId,
@@ -14,6 +14,6 @@ const tweetSchema = new Schema(
     {
         timestamps: true
     }
-)
+);
 
-export const Tweet = mongoose.model("Tweet", tweetSchema)
+export const Tweet = mongoose.model("Tweet", tweetSchema);
